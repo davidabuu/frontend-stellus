@@ -3,5 +3,5 @@ export default function getErrorCause(error: Error | undefined): Record<string, 
     error && 'cause' in error &&
     typeof error.cause === 'object' &&
     error.cause !== null
-  ) ? error.cause as Record<string, unknown> : undefined;
+  ) ? error.cause as unknown as Record<string, unknown> : undefined;
 }
