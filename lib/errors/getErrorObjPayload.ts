@@ -23,10 +23,3 @@ function isErrorWithPayload(obj: unknown): obj is { payload: unknown } {
   );
 }
 
-export function getErrorObj(error: unknown) {
-  if (typeof error !== 'object' || error === null || Array.isArray(error)) {
-    return;
-  }
-
-  return error;
-}
