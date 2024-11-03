@@ -3,15 +3,30 @@ import getErrorObj from './getErrorObj';
 export default function getErrorObjPayload<Payload extends object>(error: unknown): Payload | undefined {
   const errorObj = getErrorObj(error);
 
+  // Type guard to ensure errorObj is an object and has a payload
   if (
-    errorObj &&
-    typeof errorObj === 'object' &&
-    'payload' in errorObj &&
-    typeof (errorObj as { payload: unknown }).payload === 'object' &&
-    !Array.isArray(errorObj.payload)
+    isErrorWithPayload(errorObj)
   ) {
     return errorObj.payload as Payload;
   }
 
   return undefined;
+}
+
+// Type guard to check if an object has a 'payload' property
+function isErrorWithPayload(obj: unknown): obj is { payload: unknown } {
+  return (
+    typeof obj === 'object' &&
+    obj !== null &&
+    !Array.isArray(obj) &&
+    'payload' in obj
+  );
+}
+
+export function getErrorObj(error: unknown) {
+  if (typeof error !== 'object' || error === null || Array.isArray(error)) {
+    return;
+  }
+
+  return error;
 }
