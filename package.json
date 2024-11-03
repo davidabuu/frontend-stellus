@@ -49,6 +49,7 @@
     "@web3modal/wagmi": "5.1.7",
     "airtable": "^0.12.2",
     "bignumber.js": "^9.1.0",
+    "dotenv": "16.1.0",
     "blo": "^1.1.1",
     "chakra-react-select": "^4.4.3",
     "crypto-js": "^4.2.0",
