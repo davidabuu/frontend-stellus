@@ -6,10 +6,19 @@ import getErrorObj from 'lib/errors/getErrorObj';
 
 import useProvider from './useProvider';
 
+interface ErrorObject {
+  code?: number;
+  data?: {
+    originalError?: {
+      code?: number;
+    };
+  };
+}
+
 export default function useAddOrSwitchChain() {
   const { wallet, provider } = useProvider();
 
-  return React.useCallback(async() => {
+  return React.useCallback(async () => {
     if (!wallet || !provider) {
       return;
     }
@@ -19,17 +28,16 @@ export default function useAddOrSwitchChain() {
     try {
       return await provider.request({
         method: 'wallet_switchEthereumChain',
-        params: [ { chainId: hexadecimalChainId } ],
+        params: [{ chainId: hexadecimalChainId }],
       });
     } catch (error) {
-
-      const errorObj = getErrorObj(error);
+      const errorObj = getErrorObj(error) as ErrorObject; // Type assertion to ErrorObject
       const code = errorObj && 'code' in errorObj ? errorObj.code : undefined;
       const originalErrorCode = _get(errorObj, 'data.originalError.code');
 
       // This error code indicates that the chain has not been added to Wallet.
       if (code === 4902 || originalErrorCode === 4902) {
-        const params = [ {
+        const params = [{
           chainId: hexadecimalChainId,
           chainName: config.chain.name,
           nativeCurrency: {
@@ -37,9 +45,9 @@ export default function useAddOrSwitchChain() {
             symbol: config.chain.currency.symbol,
             decimals: config.chain.currency.decimals,
           },
-          rpcUrls: [ config.chain.rpcUrl ],
-          blockExplorerUrls: [ config.app.baseUrl ],
-        } ] as never;
+          rpcUrls: [config.chain.rpcUrl],
+          blockExplorerUrls: [config.app.baseUrl],
+        }] as never;
         // in wagmi types for wallet_addEthereumChain method is not provided
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
@@ -51,5 +59,5 @@ export default function useAddOrSwitchChain() {
 
       throw error;
     }
-  }, [ provider, wallet ]);
+  }, [provider, wallet]);
 }
