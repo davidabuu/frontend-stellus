@@ -1,6 +1,7 @@
 import * as v from 'valibot';
 
-export const SolidityScanIssueSeverityDistributionSchema = v.object({
+// Define the schema for issue severity distribution
+export const SolidityScanIssueSeverityDistributionSchema = v.schema({
   critical: v.number(),
   gas: v.number(),
   high: v.number(),
@@ -9,11 +10,12 @@ export const SolidityScanIssueSeverityDistributionSchema = v.object({
   medium: v.number(),
 });
 
-export const SolidityScanSchema = v.object({
-  scan_report: v.object({
+// Define the main schema for Solidity scan report
+export const SolidityScanSchema = v.schema({
+  scan_report: v.schema({
     contractname: v.string(),
     scan_status: v.string(),
-    scan_summary: v.object({
+    scan_summary: v.schema({
       score_v2: v.string(),
       issue_severity_distribution: SolidityScanIssueSeverityDistributionSchema,
     }),
@@ -21,5 +23,6 @@ export const SolidityScanSchema = v.object({
   }),
 });
 
+// Define types for the inferred outputs
 export type SolidityScanReport = v.InferOutput<typeof SolidityScanSchema>;
 export type SolidityScanReportSeverityDistribution = v.InferOutput<typeof SolidityScanIssueSeverityDistributionSchema>;
