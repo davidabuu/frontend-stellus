@@ -26,7 +26,8 @@ export default function useFetchReport({ hash }: Params) {
     },
   });
 
-  const errorMessage = query.error && 'message' in query.error ? query.error.message : undefined;
+  // Update error message handling
+  const errorMessage = query.error ? (query.error as { message?: string }).message : undefined;
 
   React.useEffect(() => {
     if (errorMessage === ERROR_NAME) {
