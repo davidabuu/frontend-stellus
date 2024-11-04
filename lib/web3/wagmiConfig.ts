@@ -1,23 +1,24 @@
 import { defaultWagmiConfig } from '@web3modal/wagmi/react/config';
 import { http } from 'viem';
+import { createConfig, type CreateConfigParameters } from 'wagmi';
+
 import config from 'configs/app';
 import currentChain from 'lib/web3/currentChain';
-
 const feature = config.features.blockchainInteraction;
 
 const wagmiConfig = (() => {
-  const chains = [currentChain];
+  // Define chains as a tuple with at least one Chain item
+  const chains: [typeof currentChain] = [currentChain];
 
   if (!feature.isEnabled) {
-    // Assuming an alternative setup method if `createConfig` is not taking parameters
-    const wagmiConfig = {
-      chains: [currentChain],
+    const wagmiConfig = createConfig({
+      chains,
       transports: {
         [currentChain.id]: http(config.chain.rpcUrl || `${config.api.endpoint}/api/eth-rpc`),
       },
       ssr: true,
       batch: { multicall: { wait: 100 } },
-    };
+    });
 
     return wagmiConfig;
   }
