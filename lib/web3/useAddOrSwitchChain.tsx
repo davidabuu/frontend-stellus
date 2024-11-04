@@ -32,7 +32,7 @@ export default function useAddOrSwitchChain() {
       });
     } catch (error) {
       const errorObj = getErrorObj(error) as ErrorObject; // Type assertion to ErrorObject
-      const code = errorObj && 'code' in errorObj ? errorObj.code : undefined;
+      const code = errorObj && 'code' in errorObj ? errorObj : undefined;
       const originalErrorCode = _get(errorObj, 'data.originalError.code');
 
       // This error code indicates that the chain has not been added to Wallet.
