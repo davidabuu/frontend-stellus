@@ -6,7 +6,6 @@ import currentChain from 'lib/web3/currentChain';
 const feature = config.features.blockchainInteraction;
 
 const wagmiConfig = (() => {
-  // Define `chains` as a tuple to satisfy TypeScript's requirement for at least one Chain element
   const chains = [currentChain] as const;
 
   const commonConfig = {
@@ -23,11 +22,25 @@ const wagmiConfig = (() => {
   if (!feature.isEnabled) {
     return defaultWagmiConfig({
       ...commonConfig,
+      projectId: "placeholderProjectId",
+      metadata: {
+        name: "Placeholder App",
+        description: "A placeholder description",
+        url: "https://placeholder.url",
+        icons: [],
+      },
     });
   }
 
   return defaultWagmiConfig({
     ...commonConfig,
+    projectId: feature.walletConnect.projectId,
+    metadata: {
+      name: `${config.chain.name} explorer`,
+      description: `${config.chain.name} explorer`,
+      url: config.app.baseUrl,
+      icons: [config.UI.navigation.icon.default].filter(Boolean),
+    },
     multiInjectedProviderDiscovery: true,
   });
 })();
