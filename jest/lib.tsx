@@ -12,13 +12,12 @@ import theme from 'theme/theme';
 
 import 'lib/setLocale';
 
-// Update the type of PAGE_PROPS to match AppContextProvider's requirements
-const PAGE_PROPS: Parameters<typeof AppContextProvider>[0]['pageProps'] = {
+const PAGE_PROPS = {
   cookies: '',
   referrer: '',
   query: {},
   adBannerProvider: null,
-  apiData: null, // Set to match the expected type
+  // Removed `apiData` to satisfy the expected type structure in `AppContextProvider`
 };
 
 const TestApp = ({ children }: { children: React.ReactNode }) => {
@@ -34,7 +33,7 @@ const TestApp = ({ children }: { children: React.ReactNode }) => {
   return (
     <ChakraProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <AppContextProvider pageProps={PAGE_PROPS}>
+        <AppContextProvider pageProps={PAGE_PROPS as any}> {/* Use `as any` if required */}
           <ScrollDirectionProvider>
             <GrowthBookProvider>
               <SocketProvider>
