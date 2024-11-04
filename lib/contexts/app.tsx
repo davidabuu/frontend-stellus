@@ -6,24 +6,24 @@ import type { Props as PageProps } from 'nextjs/getServerSideProps';
 type Props = {
   children: React.ReactNode;
   pageProps: PageProps;
-}
+};
 
 const AppContext = createContext<PageProps>({
   cookies: '',
   referrer: '',
   query: {},
   adBannerProvider: null,
-  apiData: null,
+  apiData: null,  // This is now allowed if `PageProps` is updated
 });
 
 export function AppContextProvider({ children, pageProps }: Props) {
   return (
-    <AppContext.Provider value={ pageProps }>
-      { children }
+    <AppContext.Provider value={pageProps}>
+      {children}
     </AppContext.Provider>
   );
 }
 
 export function useAppContext<Pathname extends Route['pathname'] = never>() {
-  return useContext<PageProps<Pathname>>(AppContext);
+  return useContext<AppContextProps<Pathname>>(AppContext);
 }
