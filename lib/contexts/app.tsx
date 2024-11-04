@@ -13,7 +13,7 @@ const AppContext = createContext<PageProps>({
   referrer: '',
   query: {},
   adBannerProvider: null,
-  apiData: {},  // Use a non-null default value if PageProps cannot be modified
+   // Use a non-null default value if PageProps cannot be modified
 });
 
 export function AppContextProvider({ children, pageProps }: Props) {
