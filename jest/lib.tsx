@@ -12,16 +12,17 @@ import theme from 'theme/theme';
 
 import 'lib/setLocale';
 
-const PAGE_PROPS = {
+// Update the type of PAGE_PROPS to match AppContextProvider's requirements
+const PAGE_PROPS: Parameters<typeof AppContextProvider>[0]['pageProps'] = {
   cookies: '',
   referrer: '',
   query: {},
   adBannerProvider: null,
-  apiData: null,
+  apiData: null, // Set to match the expected type
 };
 
-const TestApp = ({ children }: {children: React.ReactNode}) => {
-  const [ queryClient ] = React.useState(() => new QueryClient({
+const TestApp = ({ children }: { children: React.ReactNode }) => {
+  const [queryClient] = React.useState(() => new QueryClient({
     defaultOptions: {
       queries: {
         refetchOnWindowFocus: false,
@@ -31,13 +32,13 @@ const TestApp = ({ children }: {children: React.ReactNode}) => {
   }));
 
   return (
-    <ChakraProvider theme={ theme }>
-      <QueryClientProvider client={ queryClient }>
-        <AppContextProvider pageProps={ PAGE_PROPS }>
+    <ChakraProvider theme={theme}>
+      <QueryClientProvider client={queryClient}>
+        <AppContextProvider pageProps={PAGE_PROPS}>
           <ScrollDirectionProvider>
             <GrowthBookProvider>
               <SocketProvider>
-                { children }
+                {children}
               </SocketProvider>
             </GrowthBookProvider>
           </ScrollDirectionProvider>
