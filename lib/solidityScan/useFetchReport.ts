@@ -5,7 +5,7 @@ import buildUrl from 'lib/api/buildUrl';
 import useApiQuery from 'lib/api/useApiQuery';
 import { SOLIDITY_SCAN_REPORT } from 'stubs/contract';
 
-import { SolidityScanSchema } from './schema';
+import { SolidityScanSchema } from './schema'; // Ensure this import is correct
 
 interface Params {
   hash: string;
@@ -45,7 +45,7 @@ export default function useFetchReport({ hash }: Params) {
         }),
       });
     }
-  }, [ errorMessage, hash ]);
+  }, [errorMessage, hash]);
 
   return query;
 }
