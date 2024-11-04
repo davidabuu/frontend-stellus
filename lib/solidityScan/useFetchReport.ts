@@ -5,8 +5,20 @@ import buildUrl from 'lib/api/buildUrl';
 import useApiQuery from 'lib/api/useApiQuery';
 import { SOLIDITY_SCAN_REPORT } from 'stubs/contract';
 
-// Remove the SolidityScanSchema import
-// import { SolidityScanSchema } from './schema'; 
+// Define a schema for the expected response shape
+const responseSchema = v.object({
+  // Define the expected properties of the response here
+  // Adjust according to the actual response structure
+  contractname: v.string(),
+  scan_status: v.string(),
+  issues: v.array(
+    v.object({
+      severity: v.string(),
+      description: v.string(),
+    })
+  ),
+  // Add more properties as needed
+});
 
 interface Params {
   hash: string;
@@ -20,15 +32,15 @@ export default function useFetchReport({ hash }: Params) {
     pathParams: { hash },
     queryOptions: {
       select: (response) => {
-        // Use v.any() directly without safeParse for no validation
-        const parsedResponse = v.safeParse(v.any(), response); // Example placeholder for response validation
+        // Validate response against the schema
+        const parsedResponse = v.safeParse(responseSchema, response);
 
         // Check if the response is valid
         if (!parsedResponse.success) {
           throw new Error(ERROR_NAME);
         }
 
-        return parsedResponse.output;
+        return parsedResponse.output; // Return the parsed and validated output
       },
       enabled: Boolean(hash),
       placeholderData: SOLIDITY_SCAN_REPORT,
