@@ -7,7 +7,7 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
-     "typeRoots": ["node_modules/@types", "src/@types"],
+    "typeRoots": ["node_modules/@types", "src/@types"],
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -15,8 +15,8 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": ".",
+    "baseUrl": "."
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.node.ts", "**/*.tsx", "decs.d.ts", "global.d.ts"],
-  "exclude": ["node_modules", "node_modules_linux", "./deploy/tools/envs-validator"],
+  "exclude": ["node_modules", "node_modules_linux", "./deploy/tools/envs-validator"]
 }
