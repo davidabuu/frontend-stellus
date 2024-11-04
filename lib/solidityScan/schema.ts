@@ -1,16 +1,19 @@
 import * as v from 'valibot';
 
-// Define the schema for issue severity distribution
-export const SolidityScanIssueSeverityDistributionSchema = v.object({
+// Define the schema for issue severity distribution using v.object() in the correct way.
+export const SolidityScanIssueSeverityDistributionSchema = v.object();
+
+// Define the properties on the schema directly if needed
+SolidityScanIssueSeverityDistributionSchema.shape = {
   critical: v.number(),
   gas: v.number(),
   high: v.number(),
   informational: v.number(),
   low: v.number(),
   medium: v.number(),
-});
+};
 
-// Define the main schema for Solidity scan report
+// Now you can also define a schema for the complete report
 export const SolidityScanSchema = v.object({
   scan_report: v.object({
     contractname: v.string(),
