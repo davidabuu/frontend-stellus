@@ -69,6 +69,7 @@
     "lodash": "^4.0.0",
     "magic-bytes.js": "1.8.0",
     "mixpanel-browser": "^2.47.0",
+    "wagmi": "2.12.25",
     "monaco-editor": "^0.34.1",
     "next": "13.0.0",
     "nextjs-routes": "^1.0.8",
