@@ -13,7 +13,7 @@ const AppContext = createContext<PageProps>({
   referrer: '',
   query: {},
   adBannerProvider: null,
-   // Use a non-null default value if PageProps cannot be modified
+  apiData: null, // Set to match the expected PageProps structure
 });
 
 export function AppContextProvider({ children, pageProps }: Props) {
@@ -24,6 +24,7 @@ export function AppContextProvider({ children, pageProps }: Props) {
   );
 }
 
+// Use PageProps instead of AppContextProps
 export function useAppContext<Pathname extends Route['pathname'] = never>() {
-  return useContext<AppContextProps<Pathname>>(AppContext);
+  return useContext<PageProps>(AppContext);
 }
