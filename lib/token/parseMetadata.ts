@@ -20,7 +20,7 @@ export default function parseMetadata(raw: TokenInstance['metadata'] | undefined
 
   if ('attributes' in raw && Array.isArray(raw.attributes)) {
     // Use type assertion to inform TypeScript that raw.attributes is an array of AttributeItem
-    parsed.attributes = attributesParser(raw.attributes as Array<AttributeItem>);
+    parsed.attributes = attributesParser(raw.attributes);
   }
 
   if (Object.keys(parsed).length === 0) {
