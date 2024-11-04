@@ -1,20 +1,25 @@
 import _upperFirst from 'lodash/upperFirst';
-
 import type { Metadata, MetadataAttributes } from 'types/client/token';
-
 import dayjs from 'lib/date/dayjs';
+
+// Define the interface for the item in the attributes array
+interface AttributeItem {
+  value?: string | number | boolean | object;
+  trait_type?: string;
+  display_type?: string;
+}
 
 function formatValue(value: string | number, display: string | undefined, trait: string | undefined): Pick<MetadataAttributes, 'value' | 'value_type'> {
   // https://docs.opensea.io/docs/metadata-standards#attributes
   switch (display) {
     case 'boost_number': {
       return {
-        value: `+${ value } boost`,
+        value: `+${value} boost`,
       };
     }
     case 'boost_percentage': {
       return {
-        value: `${ value }% boost`,
+        value: `${value}% boost`,
       };
     }
     case 'date': {
@@ -41,7 +46,7 @@ function formatValue(value: string | number, display: string | undefined, trait:
   }
 }
 
-export default function attributesParser(attributes: Array<unknown>): Metadata['attributes'] {
+export default function attributesParser(attributes: Array<AttributeItem>): Metadata['attributes'] {
   return attributes
     .map((item) => {
       if (typeof item !== 'object' || !item) {
@@ -60,6 +65,8 @@ export default function attributesParser(attributes: Array<unknown>): Metadata['
             return String(item.value);
           case 'object':
             return JSON.stringify(item.value);
+          default:
+            return undefined;
         }
       })();
 
