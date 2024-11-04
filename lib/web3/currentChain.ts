@@ -1,5 +1,4 @@
 import { type Chain } from 'viem';
-
 import config from 'configs/app';
 
 const currentChain = {
@@ -12,7 +11,7 @@ const currentChain = {
   },
   rpcUrls: {
     'default': {
-      http: [ config.chain.rpcUrl ?? '' ],
+      http: [config.chain.rpcUrl ?? ''],
     },
   },
   blockExplorers: {
@@ -22,6 +21,6 @@ const currentChain = {
     },
   },
   testnet: config.chain.isTestnet,
-} as const satisfies Chain;
+} as const as Chain; // Using type assertion instead
 
 export default currentChain;
