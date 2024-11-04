@@ -1,8 +1,8 @@
+// lib/token/parseMetadata.ts
 import type { TokenInstance } from 'types/api/token';
-import type { Metadata } from 'types/client/token';
+import type { Metadata, AttributeItem } from 'types/client/token';
 import attributesParser from './metadata/attributesParser';
 
-// Adjust the type of the raw metadata to be more specific
 export default function parseMetadata(raw: TokenInstance['metadata'] | undefined): Metadata | undefined {
   if (!raw) {
     return;
@@ -20,7 +20,7 @@ export default function parseMetadata(raw: TokenInstance['metadata'] | undefined
 
   if ('attributes' in raw && Array.isArray(raw.attributes)) {
     // Use type assertion to inform TypeScript that raw.attributes is an array of AttributeItem
-    parsed.attributes = attributesParser(raw.attributes);
+    parsed.attributes = attributesParser(raw.attributes as Array<AttributeItem>);
   }
 
   if (Object.keys(parsed).length === 0) {
