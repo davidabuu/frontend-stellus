@@ -20,11 +20,12 @@ export default function useFetchReport({ hash }: Params) {
     pathParams: { hash },
     queryOptions: {
       select: (response) => {
-        // You may want to add a different validation or remove the validation altogether
+        // Use v.any() directly without safeParse for no validation
         const parsedResponse = v.safeParse(v.any(), response); // Example placeholder for response validation
 
+        // Check if the response is valid
         if (!parsedResponse.success) {
-          throw Error(ERROR_NAME);
+          throw new Error(ERROR_NAME);
         }
 
         return parsedResponse.output;
