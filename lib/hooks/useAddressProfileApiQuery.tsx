@@ -9,11 +9,12 @@ const feature = config.features.addressProfileAPI;
 
 type AddressInfoApiQueryResponse = v.InferOutput<typeof AddressInfoSchema>;
 
-const AddressInfoSchema = v.object({
-  user_profile: v.object({
-    username: v.union([ v.string(), v.null() ]),
+const AddressInfoSchema = v.shape({
+  user_profile: v.shape({
+    username: v.union([v.string(), v.null()]),
   }),
 });
+
 
 const ERROR_NAME = 'Invalid response schema';
 
