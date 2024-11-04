@@ -23,24 +23,12 @@ const wagmiConfig = (() => {
   if (!feature.isEnabled) {
     return defaultWagmiConfig({
       ...commonConfig,
-      // Additional non-enabled config, if needed
     });
   }
 
   return defaultWagmiConfig({
     ...commonConfig,
     multiInjectedProviderDiscovery: true,
-    projectId: feature.walletConnect.projectId!, // Assert that `projectId` is defined when `feature.isEnabled` is true
-    metadata: {
-      name: `${config.chain.name} explorer`,
-      description: `${config.chain.name} explorer`,
-      url: config.app.baseUrl,
-      icons: [config.UI.navigation.icon.default].filter(Boolean),
-    },
-    auth: {
-      email: true,
-      socials: [],
-    },
   });
 })();
 
