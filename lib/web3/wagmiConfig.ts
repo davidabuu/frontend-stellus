@@ -6,7 +6,8 @@ import currentChain from 'lib/web3/currentChain';
 const feature = config.features.blockchainInteraction;
 
 const wagmiConfig = (() => {
-  const chains = [currentChain];
+  // Define `chains` as a tuple to satisfy TypeScript's requirement for at least one Chain element
+  const chains = [currentChain] as const;
 
   const commonConfig = {
     chains,
@@ -29,7 +30,7 @@ const wagmiConfig = (() => {
   return defaultWagmiConfig({
     ...commonConfig,
     multiInjectedProviderDiscovery: true,
-    projectId: feature.walletConnect.projectId!, // Use `!` to assert it's defined when `feature.isEnabled` is `true`
+    projectId: feature.walletConnect.projectId!, // Assert that `projectId` is defined when `feature.isEnabled` is true
     metadata: {
       name: `${config.chain.name} explorer`,
       description: `${config.chain.name} explorer`,
