@@ -41,7 +41,6 @@ Promise<GetServerSidePropsResult<Props<Pathname>>> => {
       cookies: req.headers.cookie || '',
       referrer: req.headers.referer || '',
       adBannerProvider: adBannerProvider,
-      apiData: null,
     },
   };
 };
