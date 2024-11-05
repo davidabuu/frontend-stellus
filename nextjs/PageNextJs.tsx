@@ -15,13 +15,12 @@ interface Props<Pathname extends Route['pathname']> {
   pathname: Pathname;
   children: React.ReactNode;
   query?: PageProps<Pathname>['query'];
-  apiData?: PageProps<Pathname>['apiData'];
 }
 
 initSentry();
 
 const PageNextJs = <Pathname extends Route['pathname']>(props: Props<Pathname>) => {
-  const { title, description, opengraph, canonical } = metadata.generate(props, props.apiData);
+  const { title, description, opengraph, canonical } = metadata.generate(props, 'hhhh');
 
   useGetCsrfToken();
   useAdblockDetect();
