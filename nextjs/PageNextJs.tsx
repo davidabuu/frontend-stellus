@@ -20,7 +20,11 @@ interface Props<Pathname extends Route['pathname']> {
 initSentry();
 
 const PageNextJs = <Pathname extends Route['pathname']>(props: Props<Pathname>) => {
-  const { title, description, opengraph, canonical } = metadata.generate(props, 'hhhh');
+ const { title, description, opengraph, canonical } = metadata.generate(
+  props,
+  {} as PageProps<Pathname>  // or specific object that matches your route type
+);
+
 
   useGetCsrfToken();
   useAdblockDetect();
