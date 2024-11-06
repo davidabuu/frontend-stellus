@@ -1,5 +1,9 @@
+// lib/mixpanel/index.ts
+
+
+// lib/web3/useWallet.ts
 import React from 'react';
-import * as mixpanel from 'lib/mixpanel/index';
+import * as mixpanel from './mixpanel';  // Import the updated mixpanel file
 
 interface Params {
   source: mixpanel.EventPayload<mixpanel.EventTypes.WALLET_CONNECT>['Source'];
@@ -21,13 +25,14 @@ export default function useWeb3Wallet({ source }: Params) {
     // Simulate the wallet connection, replace with your connection logic
     setAddress("0xSomeAddress");  // Example address, replace with actual connection logic
     setIsOpening(false);
-    mixpanel.logEvent(mixpanel.EventTypes.WALLET_CONNECT, { Source: source, Status: 'Started' });
+    mixpanel.logEvent('WALLET_CONNECT', { Source: source, Status: 'Started' });
     isConnectionStarted.current = true;
   }, [source]);
 
   const handleAccountConnected = React.useCallback(({ isReconnected }: { isReconnected: boolean }) => {
     if (!isReconnected && isConnectionStarted.current) {
-      mixpanel.logEvent(mixpanel.EventTypes.WALLET_CONNECT, { Source: source, Status: 'Connected' });
+      mixpanel.logEvent('WALLET_CONNECT', { Source: source, Status: 'Connected' });
+      // Simulate user profile tracking with Mixpanel
       mixpanel.userProfile.setOnce({
         'With Connected Wallet': true,
       });
@@ -40,7 +45,7 @@ export default function useWeb3Wallet({ source }: Params) {
     setIsDisconnected(true);
 
     // Log the disconnect event
-    mixpanel.logEvent(mixpanel.EventTypes.WALLET_DISCONNECT, { Source: source, Status: 'Disconnected' });
+    mixpanel.logEvent('WALLET_DISCONNECT', { Source: source, Status: 'Disconnected' });
   }, [source]);
 
   // Simulate account connection handling based on address
