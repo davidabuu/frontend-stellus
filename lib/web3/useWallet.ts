@@ -10,11 +10,11 @@ interface Params {
 export default function useWeb3Wallet({ source }: Params) {
   const { open: openModal } = useWeb3Modal();
   const { open: isOpen } = useWeb3ModalState();
-  const [ isOpening, setIsOpening ] = React.useState(false);
-  const [ isClientLoaded, setIsClientLoaded ] = React.useState(false);
+  const [isOpening, setIsOpening] = React.useState(false);
+  const [isClientLoaded, setIsClientLoaded] = React.useState(false);
   const isConnectionStarted = React.useRef(false);
-  const [address, setAddress] = React.useState<string | undefined>(undefined);  // Store address
-  const [isDisconnected, setIsDisconnected] = React.useState(true);  // Track connection status
+  const [address, setAddress] = React.useState<string | undefined>(undefined); // Store address
+  const [isDisconnected, setIsDisconnected] = React.useState(true); // Track connection status
 
   React.useEffect(() => {
     setIsClientLoaded(true);
@@ -39,9 +39,11 @@ export default function useWeb3Wallet({ source }: Params) {
   }, [source]);
 
   const handleDisconnect = React.useCallback(() => {
-    setAddress(undefined);  // Clear the address on disconnect
+    setAddress(undefined); // Clear the address on disconnect
     setIsDisconnected(true);
-    mixpanel.logEvent(mixpanel.EventTypes.WALLET_CONNECT, { Source: source, Status: 'Disconnected' });
+
+    // Log with a custom event for disconnecting
+    mixpanel.logEvent('WALLET_DISCONNECT', { Source: source, Status: 'Disconnected' });
   }, [source]);
 
   // Simulating a connected account based on external wallet interaction
