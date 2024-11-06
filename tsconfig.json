@@ -29,6 +29,6 @@
     "node_modules",
     "node_modules_linux",
     "./deploy/tools/envs-validator",
-    "node_modules/@wagmi/core"
+    "node_modules/@wagmi" // Exclude the wagmi library
   ]
 }
