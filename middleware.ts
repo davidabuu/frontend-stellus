@@ -25,7 +25,7 @@ export function middleware(req: NextRequest) {
 
   const end = Date.now();
 
-  res.headers.append('Content-Security-Policy', cspPolicy);
+  res.headers.append('Content-Security-Policy', 'wfff');
   res.headers.append('Server-Timing', `middleware;dur=${ end - start }`);
   res.headers.append('Docker-ID', process.env.HOSTNAME || '');
 
