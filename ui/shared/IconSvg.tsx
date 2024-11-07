@@ -5,7 +5,7 @@ import React from 'react';
 
 export const href = '/icons/sprite.svg';
 
-export { IconName };
+
 
 interface Props extends HTMLChakraProps<'div'> {
   name: IconName;
