@@ -20,7 +20,7 @@ export const growthBook = (() => {
     clientKey: feature.clientKey,
     enableDevMode: config.app.isDev,
     attributes: {
-      id: config.app.clientId, // You can set a different identifier if needed
+       id: "default-client-id",// You can set a different identifier if needed
       chain_id: config.chain.id,
     },
     trackingCallback: (experiment, result) => {
