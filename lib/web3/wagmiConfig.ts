@@ -1,48 +1,49 @@
 import { defaultWagmiConfig } from '@web3modal/wagmi/react/config';
 import { http } from 'viem';
+import { createConfig, type CreateConfigParameters } from 'wagmi';
+
 import config from 'configs/app';
 import currentChain from 'lib/web3/currentChain';
-
 const feature = config.features.blockchainInteraction;
 
 const wagmiConfig = (() => {
-  const chains = [currentChain] as const;
+  const chains: CreateConfigParameters['chains'] = [ currentChain ];
 
-  const commonConfig = {
+  if (!feature.isEnabled) {
+    const wagmiConfig = createConfig({
+      chains: [ currentChain ],
+      transports: {
+        [currentChain.id]: http(config.chain.rpcUrl || `${ config.api.endpoint }/api/eth-rpc`),
+      },
+      ssr: true,
+      batch: { multicall: { wait: 100 } },
+    });
+
+    return wagmiConfig;
+  }
+
+  const wagmiConfig = defaultWagmiConfig({
     chains,
+    multiInjectedProviderDiscovery: true,
     transports: {
-      [currentChain.id]: http(
-        feature.isEnabled ? '' : config.chain.rpcUrl || `${config.api.endpoint}/api/eth-rpc`
-      ),
+      [currentChain.id]: http(),
+    },
+    projectId: feature.walletConnect.projectId,
+    metadata: {
+      name: `${ config.chain.name } explorer`,
+      description: `${ config.chain.name } explorer`,
+      url: config.app.baseUrl,
+      icons: [ config.UI.navigation.icon.default ].filter(Boolean),
+    },
+    auth: {
+      email: true,
+      socials: [],
     },
     ssr: true,
     batch: { multicall: { wait: 100 } },
-  };
-
-  if (!feature.isEnabled) {
-    return defaultWagmiConfig({
-      ...commonConfig,
-      projectId: "placeholderProjectId",
-      metadata: {
-        name: "Placeholder App",
-        description: "A placeholder description",
-        url: "https://placeholder.url",
-        icons: [],
-      },
-    });
-  }
-
-  return defaultWagmiConfig({
-    ...commonConfig,
-    projectId: feature.walletConnect.projectId,
-    metadata: {
-      name: `${config.chain.name} explorer`,
-      description: `${config.chain.name} explorer`,
-      url: config.app.baseUrl,
-      icons: [config.UI.navigation.icon.default].filter(Boolean),
-    },
-    multiInjectedProviderDiscovery: true,
   });
+
+  return wagmiConfig;
 })();
 
 export default wagmiConfig;
