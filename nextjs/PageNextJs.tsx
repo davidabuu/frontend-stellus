@@ -29,7 +29,7 @@ const PageNextJs = <Pathname extends Route['pathname']>(props: Props<Pathname>) 
     <>
       <Head>
         {/* Title and meta tags are removed since metadata.generate is no longer used */}
-        <title>Ozura Legder Explorer</title>
+        <title>Stellus Explorer</title>
         <meta name="description" content="Default description"/>
         <meta name="twitter:card" content="summary_large_image"/>
         <meta property="twitter:domain" content={ config.app.host }/>
