@@ -1,9 +1,9 @@
-import type { UseAccountReturnType } from 'wagmi';
+
 import { useAccount } from 'wagmi';
 
 import config from 'configs/app';
 
-function useAccountFallback(): UseAccountReturnType {
+function useAccountFallback(){
   return {
     address: undefined,
     addresses: undefined,
