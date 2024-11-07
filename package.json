@@ -96,7 +96,7 @@
     "valibot": "0.38.0",
     "viem": "2.21.5",
      "wagmi": "^1.0.9",
-    "wagmi/core": "2.13.5",
+    "wagmi/core": "2.14.3",
     "xss": "^1.0.14"
   },
   "devDependencies": {
