@@ -1,11 +1,9 @@
-// Remove wagmi imports
-// import type { UseAccountReturnType } from 'wagmi';
-// import { useAccount } from 'wagmi';
+import type { UseAccountReturnType } from 'wagmi';
+import { useAccount } from 'wagmi';
 
 import config from 'configs/app';
 
-// Define a fallback hook for `useAccount`
-function useAccountFallback(): any {
+function useAccountFallback(): UseAccountReturnType {
   return {
     address: undefined,
     addresses: undefined,
@@ -20,7 +18,6 @@ function useAccountFallback(): any {
   };
 }
 
-// Use the fallback instead of wagmi's useAccount
-const hook = config.features.blockchainInteraction.isEnabled ? useAccountFallback : useAccountFallback;
+const hook = config.features.blockchainInteraction.isEnabled ? useAccount : useAccountFallback;
 
 export default hook;
