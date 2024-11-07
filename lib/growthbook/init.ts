@@ -1,6 +1,6 @@
 import { GrowthBook } from '@growthbook/growthbook-react';
+
 import config from 'configs/app';
-import * as mixpanel from 'lib/mixpanel';  // Import the mixpanel module
 
 import { STORAGE_KEY, STORAGE_LIMIT } from './consts';
 
@@ -20,7 +20,7 @@ export const growthBook = (() => {
     clientKey: feature.clientKey,
     enableDevMode: config.app.isDev,
     attributes: {
-      id: mixpanel.getUuid(),
+      id: config.app.clientId, // You can set a different identifier if needed
       chain_id: config.chain.id,
     },
     trackingCallback: (experiment, result) => {
@@ -29,8 +29,8 @@ export const growthBook = (() => {
       }
 
       saveExperimentInStorage(experiment.key);
-      // Replace mixpanel.EventTypes.EXPERIMENT_STARTED with the event string
-      mixpanel.logEvent('EXPERIMENT_STARTED', {  // Directly use the event string here
+      // You can replace the mixpanel tracking with another method or logging if needed.
+      console.log('Experiment Started:', {
         'Experiment name': experiment.key,
         'Variant name': result.value,
         Source: 'growthbook',
