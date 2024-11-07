@@ -7,7 +7,7 @@ import SearchBar from 'ui/snippets/searchBar/SearchBar';
 import UserProfileDesktop from 'ui/snippets/user/profile/UserProfileDesktop';
 import UserWalletDesktop from 'ui/snippets/user/wallet/UserWalletDesktop';
 
-const BACKGROUND_DEFAULT = 'rgba(31, 28, 39, 1)';
+const BACKGROUND_DEFAULT = 'radial-gradient(103.03% 103.03% at 0% 0%, rgba(78, 84, 200, 0.8) 0%, rgba(42, 45, 91, 0.8) 100%), var(--chakra-colors-gray-900)';
 const TEXT_COLOR_DEFAULT = 'white';
 const BORDER_DEFAULT = 'none';
 
@@ -62,8 +62,8 @@ const HeroBanner = () => {
           >
             {
               config.meta.seo.enhancedDataEnabled ?
-                `Ozura Ledger blockchain explorer` :
-                `Ozura Ledger blockchain explorer`
+                `Stellus blockchain explorer` :
+                `Stellus Ledger blockchain explorer`
             }
           </Heading>
           { config.UI.navigation.layout === 'vertical' && (
