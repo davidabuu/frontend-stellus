@@ -1,7 +1,6 @@
 import { GrowthBook } from '@growthbook/growthbook-react';
-
 import config from 'configs/app';
-import * as mixpanel from 'lib/mixpanel';
+import * as mixpanel from 'lib/mixpanel';  // Import the mixpanel module
 
 import { STORAGE_KEY, STORAGE_LIMIT } from './consts';
 
@@ -30,7 +29,8 @@ export const growthBook = (() => {
       }
 
       saveExperimentInStorage(experiment.key);
-      mixpanel.logEvent(mixpanel.EventTypes.EXPERIMENT_STARTED, {
+      // Replace mixpanel.EventTypes.EXPERIMENT_STARTED with the event string
+      mixpanel.logEvent('EXPERIMENT_STARTED', {  // Directly use the event string here
         'Experiment name': experiment.key,
         'Variant name': result.value,
         Source: 'growthbook',
